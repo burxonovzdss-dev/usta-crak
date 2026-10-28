@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1224">
+  <title>Usta Crak — Slayd yaratuvchi</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <style>
+    :root{--bg:#0b1224;--panel:#121d35;--panel2:#182746;--text:#f3f6ff;--muted:#aab6d0;--blue:#4da3ff;--line:#2a3b5d}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(145deg,#09101f,#111d37);color:var(--text);font:16px/1.5 system-ui,Arial,sans-serif}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px max(18px,calc((100% - 1120px)/2));border-bottom:1px solid var(--line);gap:12px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.25rem;letter-spacing:.2px}.logo{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#2676ff,#64d4ff);color:#061126;font-weight:1000}
+    .wrap{max-width:1120px;margin:auto;padding:28px 18px 60px}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:stretch}
+    .panel{background:rgba(18,29,53,.92);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 18px 50px #0002}
+    h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;margin:10px 0 16px}.muted{color:var(--muted)}.pill{display:inline-block;border:1px solid #36517e;border-radius:999px;padding:5px 10px;color:#b9d8ff;font-size:.85rem}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.stat{background:var(--panel2);border-radius:14px;padding:14px}.stat b{display:block;font-size:1.3rem}
+    label{display:block;font-weight:700;margin:12px 0 6px}input,textarea,select{width:100%;padding:12px 13px;border-radius:11px;border:1px solid var(--line);background:#0b1428;color:var(--text);font:inherit}
+    textarea{min-height:90px;resize:vertical}button{cursor:pointer;border:0;border-radius:11px;padding:11px 15px;font:inherit;font-weight:800;background:var(--blue);color:#061126}button.secondary{background:#263957;color:var(--text);border:1px solid #3b5278}button.danger{background:#5a2938;color:#fff}
+    .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.slides{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px}
+    .slide{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1e4d88,#111b32);border:1px solid #5279ac;border-radius:15px;padding:17px;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+    .slide h3{font-size:1.2rem;margin:0 0 8px}.slide p{margin:0;color:#d6e5ff;white-space:pre-wrap;overflow-wrap:anywhere}.watermark{position:absolute;bottom:7px;right:10px;font-size:10px;font-weight:900;letter-spacing:.6px;color:#dcecffb8}
+    .slide small{position:absolute;top:8px;right:10px;color:#dcecffaa}.empty{padding:30px;text-align:center;border:1px dashed #3a5078;border-radius:16px;color:var(--muted)}
+    footer{text-align:center;padding:20px;color:var(--muted);font-size:.9rem}.notice{margin-top:18px;border-left:3px solid #f5c451;padding:10px 14px;background:#292515;color:#f6e8b5;border-radius:0 10px 10px 0;font-size:.9rem}
+    @media(max-width:760px){.hero{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}.wrap{padding-top:18px}.panel{padding:18px}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">UC</div> Usta Crak</div>
+  <span class="pill">PWA boshlang‘ich versiya</span>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div class="panel">
+      <span class="pill">Slayd yaratish studiyasi</span>
+      <h1>G‘oyangni <span style="color:#64c8ff">slaydga</span> aylantir.</h1>
+      <p class="muted">Matn kiriting, slaydlarni tuzing va taqdimotlaringizni boshqaring. Har bir slaydda Usta Crak belgisi bo‘ladi.</p>
+      <div class="stats">
+        <div class="stat"><b id="deckCount">0/3</b><span class="muted">Taqdimot</span></div>
+        <div class="stat"><b>20</b><span class="muted">Slayd / taqdimot</span></div>
+        <div class="stat"><b>24/7*</b><span class="muted">Maqsad</span></div>
+      </div>
+      <div class="notice">Bu hozircha sinov prototipi. Haqiqiy akkauntlar, maxfiy admin va internetda 24/7 ishlashi uchun server va hosting ulash kerak.</div>
+    </div>
+    <div class="panel">
+      <h2 style="margin-top:0">Yangi taqdimot</h2>
+      <label for="deckTitle">Taqdimot nomi</label>
+      <input id="deckTitle" maxlength="90" placeholder="Masalan: O‘zbekiston tarixi">
+      <label for="slideTitle">Birinchi slayd sarlavhasi</label>
+      <input id="slideTitle" maxlength="120" placeholder="Mavzu sarlavhasi">
+      <label for="slideBody">Matn</label>
+      <textarea id="slideBody" maxlength="1200" placeholder="Slaydga qo‘yiladigan qisqa matn..."></textarea>
+      <div class="actions"><button id="createBtn">+ Taqdimot yaratish</button><button class="secondary" id="installBtn" hidden>Ilovani o‘rnatish</button></div>
+      <p id="status" class="muted" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+  <section style="margin-top:28px">
+    <h2>Mening taqdimotlarim</h2>
+    <p class="muted">Ushbu prototipda ma’lumotlar shu brauzerda saqlanadi. Boshqa qurilmaga avtomatik o‘tmaydi.</p>
+    <div id="decks" class="slides"></div>
+  </section>
+</main>
+<footer>© <span id="year"></span> Usta Crak · Slaydlaringizga o‘z uslubingizni bering.</footer>
+<script>
+const KEY='usta-crak-prototype-v1';
+let decks=[];
+try{decks=JSON.parse(localStorage.getItem(KEY)||'[]')}catch{decks=[]}
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem(KEY,JSON.stringify(decks));render()}
+function render(){
+  $('deckCount').textContent=`${decks.length}/3`;
+  const host=$('decks'); host.innerHTML='';
+  if(!decks.length){host.innerHTML='<div class="empty">Hali taqdimot yo‘q. Birinchi taqdimotingizni yarating.</div>';return}
+  decks.forEach((deck,di)=>{
+    const card=document.createElement('article');card.className='slide';
+    const small=document.createElement('small');small.textContent=`${deck.slides.length}/20 slayd`;card.append(small);
+    const h=document.createElement('h3');h.textContent=deck.title;card.append(h);
+    const p=document.createElement('p');p.textContent=deck.slides[0]?.body||'Taqdimot tayyor';card.append(p);
+    const wm=document.createElement('div');wm.className='watermark';wm.textContent='Usta Crak';card.append(wm);
+    const controls=document.createElement('div');controls.className='actions';controls.style.position='absolute';controls.style.left='12px';controls.style.right='12px';controls.style.bottom='28px';
+    const add=document.createElement('button');add.className='secondary';add.textContent='+ Slayd';add.onclick=()=>addSlide(di);controls.append(add);
+    const pdf=document.createElement('button');pdf.className='secondary';pdf.textContent='PDF / Chop etish';pdf.onclick=()=>printDeck(di);controls.append(pdf);
+    const del=document.createElement('button');del.className='danger';del.textContent='O‘chirish';del.onclick=()=>{if(confirm('Taqdimot o‘chirilsinmi?')){decks.splice(di,1);save()}};controls.append(del);
+    card.append(controls);host.append(card);
+  })
+}
+$('createBtn').onclick=()=>{
+  const title=$('deckTitle').value.trim(), st=$('slideTitle').value.trim(), body=$('slideBody').value.trim();
+  if(!title||!st){$('status').textContent='Taqdimot nomi va slayd sarlavhasini kiriting.';return}
+  if(decks.length>=3){$('status').textContent='Bepul limit: 3 ta taqdimot. Prototipda boshqa taqdimot yaratib bo‘lmaydi.';return}
+  decks.push({title,slides:[{title:st,body}]});save();$('status').textContent='Taqdimot yaratildi.';$('deckTitle').value='';$('slideTitle').value='';$('slideBody').value='';
+};
+function addSlide(i){
+  if(decks[i].slides.length>=20){alert('Har bir taqdimot uchun limit — 20 slayd.');return}
+  const title=prompt('Slayd sarlavhasi:');if(title===null||!title.trim())return;
+  const body=prompt('Slayd matni:')||'';decks[i].slides.push({title:title.trim(),body});save();
+}
+function printDeck(i){
+  const d=decks[i];const w=window.open('','_blank');if(!w){alert('PDF qilish uchun yangi oynaga ruxsat bering.');return}
+  const slides=d.slides.map(s=>`<section><h1>${esc(s.title)}</h1><p>${esc(s.body).replace(/\n/g,'<br>')}</p><b class="wm">Usta Crak</b></section>`).join('');
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(d.title)}</title><style>@page{size:landscape;margin:0}body{margin:0;font-family:Arial}section{width:100vw;height:100vh;box-sizing:border-box;padding:9%;page-break-after:always;background:linear-gradient(135deg,#123b6d,#101a30);color:white;position:relative}h1{font-size:42pt}p{font-size:23pt}.wm{position:absolute;right:30px;bottom:20px;color:#dcecff}</style></head><body>${slides}<script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('year').textContent=new Date().getFullYear();render();
+let installPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('installBtn').hidden=false});
+$('installBtn').onclick=async()=>{if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('installBtn').hidden=true}else alert('Brauzer menyusidan “Add to Home screen / Bosh ekranga qo‘shish”ni tanlang.')};
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "Usta Crak — Slayd yaratuvchi",
+  "short_name": "Usta Crak",
+  "description": "Taqdimotlar yaratish uchun Usta Crak ilovasi",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b1224",
+  "theme_color": "#0b1224",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
